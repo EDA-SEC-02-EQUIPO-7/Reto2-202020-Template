@@ -34,8 +34,23 @@ recae sobre el controlador.
 """
 
 # ___________________________________________________
+#  TADlista datos
+# ___________________________________________________
+
+def llamarcargardatoslista (nombrearchivo):
+    lista = model.CargarDatosLista(nombrearchivo)
+    return lista
+
+# ___________________________________________________
+#  TADlista datos
+# ___________________________________________________
+
+
+
+# ___________________________________________________
 #  Inicializacion del catalogo
 # ___________________________________________________
+
 
 
 

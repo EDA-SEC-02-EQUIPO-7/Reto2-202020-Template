@@ -25,11 +25,34 @@ from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 assert config
 
+import csv
+
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
 
 """
+
+# -----------------------------------------------------
+# Lista de carga inicial de los archivos
+# -----------------------------------------------------
+
+def CargarDatosLista (file, sep=";"):
+    lst = lt.newList("ARRAY_LIST")
+    print("Cargando datos ....")
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    try:
+        with open(file, encoding='utf-8-sig') as csvfile:
+            spamreader = csv.DictReader(csvfile, dialect=dialect)
+            for row in spamreader: 
+                #print (row)
+                lt.addLast(lst,row)
+    except:
+        print("Hubo un error con la carga del archivo")
+
+    return lst
+
 
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros

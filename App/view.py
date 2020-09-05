@@ -38,7 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-
+csvcasting = "Data/MoviesCastingRaw-small.csv"
+csvdetalles = "Data/SmallMoviesDetailsCleaned.csv"
 
 
 
@@ -48,8 +49,56 @@ operación seleccionada.
 #  el controlador.
 # ___________________________________________________
 
+def muestrainfopeliculas (peliculaparametro, posicionpelicula):
+    print ("La película en la posicion {}, corresponde a {}, se estrenó el {}, tiene una votación promedio de {} en un total de {} votos, y su idioma original es {}." .format (str (posicionpelicula), peliculaparametro['original_title'], peliculaparametro['release_date'], peliculaparametro['vote_average'], peliculaparametro['vote_count'], peliculaparametro['original_language']))
 
 
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
+
+
+def printMenu():
+    ejecuta = True
+    while ejecuta:
+        print("\n**Explorando la magia del cine recargado**")
+        print ("Bienvenido, las siguientes son las opciones que puede consultar:\n")
+        print("1- Cargar Datos")
+        print("2- Cargar información en el catálogo")
+        print("3- Descubrir productoras de cine") #req 1
+        print("4- Conocer a un director") #req 2
+        print("5- Conocer a un actor") #req 3
+        print("6- Entender un género cinematográfico") #req 4
+        print("7- Encontrar películas por país") #req 5
+        print("0- Salir")
+
+        inputs = input('\nSeleccione una opción para continuar\n')
+
+        if int(inputs[0]) == 1:
+            
+            casting = controller.llamarcargardatoslista(csvcasting)
+            detalles = controller.llamarcargardatoslista(csvdetalles)
+            print ("Se cargaron en total {} peliculas" .format(lt.size(detalles)))
+            primerelemento = lt.firstElement(detalles)
+            ultimoelemento = lt.lastElement(detalles)
+            muestrainfopeliculas (primerelemento, 1)
+            muestrainfopeliculas (ultimoelemento, lt.size(detalles))
+            
+
+        elif int(inputs[0]) == 2:
+            pass
+
+        elif int(inputs[0]) == 3:
+            pass
+
+        elif int(inputs[0]) == 4:
+            pass
+
+        elif int(inputs[0]) == 5:
+            pass
+        
+        elif int(inputs[0]) == 0:
+            ejecuta = False
+
+printMenu()
+
