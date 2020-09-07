@@ -37,25 +37,25 @@ recae sobre el controlador.
 #  TADlista datos
 # ___________________________________________________
 
-def llamarcargardatoslista (nombrearchivo):
-    lista = model.CargarDatosLista(nombrearchivo)
-    return lista
-
-# ___________________________________________________
-#  TADlista datos
-# ___________________________________________________
-
-
-
-# ___________________________________________________
-#  Inicializacion del catalogo
-# ___________________________________________________
-
+def cargardatosmovies (file, sep=";"):
+    lst = model.newlistmovie()#Usando implementacion arraylist
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    try:
+        with open(file, encoding='utf-8-sig') as csvfile:
+            spamreader = csv.DictReader(csvfile, dialect=dialect)
+            for row in spamreader: 
+                model.addmovie(lst,row)
+    except:
+        print("Hubo un error con la carga del archivo")
+    return lst
 
 
+def lastmovie(lst):
+    movie=model.getmovie(lst,lst["size"])
+    return movie
 
+def firstmovie(lst):
+    movie=model.getmovie(lst,1)
+    return movie
 
-# ___________________________________________________
-#  Funciones para la carga de datos y almacenamiento
-#  de datos en los modelos
-# ___________________________________________________

@@ -33,24 +33,9 @@ es decir contiene los modelos con los datos en memoria
 
 """
 
-# -----------------------------------------------------
-# Lista de carga inicial de los archivos
-# -----------------------------------------------------
 
-def CargarDatosLista (file, sep=";"):
-    lst = lt.newList("ARRAY_LIST")
-    print("Cargando datos ....")
-    dialect = csv.excel()
-    dialect.delimiter=sep
-    try:
-        with open(file, encoding='utf-8-sig') as csvfile:
-            spamreader = csv.DictReader(csvfile, dialect=dialect)
-            for row in spamreader: 
-                #print (row)
-                lt.addLast(lst,row)
-    except:
-        print("Hubo un error con la carga del archivo")
-
+def newlistmovie():
+    lst=lt.newList("ARRAY_LIST")
     return lst
 
 
@@ -58,7 +43,8 @@ def CargarDatosLista (file, sep=";"):
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
-
+def addmovie(lst,movie):
+    lt.addLast(lst,movie)
 
 # Funciones para agregar informacion al catalogo
 
@@ -68,7 +54,9 @@ def CargarDatosLista (file, sep=";"):
 # Funciones de consulta
 # ==============================
 
-
+def getmovie(lst,pos):
+    element=lt.getElement(lst,pos)
+    return element
 
 # ==============================
 # Funciones de Comparacion

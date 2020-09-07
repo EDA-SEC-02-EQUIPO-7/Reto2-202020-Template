@@ -76,11 +76,11 @@ def printMenu():
 
         if int(inputs[0]) == 1:
             
-            casting = controller.llamarcargardatoslista(csvcasting)
-            detalles = controller.llamarcargardatoslista(csvdetalles)
+
+            detalles = controller.cargardatosmovies("Data\SmallMoviesDetailsCleaned.csv")
             print ("Se cargaron en total {} peliculas" .format(lt.size(detalles)))
-            primerelemento = lt.firstElement(detalles)
-            ultimoelemento = lt.lastElement(detalles)
+            primerelemento = controller.firstmovie(detalles)
+            ultimoelemento = controller.lastmovie(detalles)
             muestrainfopeliculas (primerelemento, 1)
             muestrainfopeliculas (ultimoelemento, lt.size(detalles))
             
