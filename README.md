@@ -30,3 +30,5 @@ Este directorio contiene todo el código de base que se entrega para el funciona
 -Test
 Este directorio contiene las pruebas realizadas a los TADs, Estructuras de Datos y Algoritmos.
 
+Santiago Pardo Bravo 202013024 s.pardob@uniandes.edu.co
+Cristhian David Perdomo Gómez 201316701 cd.perdomo10@uniandes.edu.co

@@ -38,8 +38,7 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-csvcasting = "Data/MoviesCastingRaw-small.csv"
-csvdetalles = "Data/SmallMoviesDetailsCleaned.csv"
+
 
 
 
