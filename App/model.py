@@ -50,6 +50,84 @@ def addmovie(lst,movie):
 
 
 
+
+# -----------------------------------------------------
+# -----------------------------------------------------
+# Catálogo vacío
+# Catálogo vacío
+# Catálogo vacío
+# -----------------------------------------------------
+# -----------------------------------------------------
+
+
+def newCatalog():
+    """ Inicializa el catálogo de películas
+
+    Crea una lista vacia para guardar todas las películas
+
+    Se crean indices (Maps) por los siguientes criterios:
+    Productoras
+    Directores
+    Actores
+    Géneros
+    Pais
+
+    Retorna el catalogo inicializado.
+    """
+    catalog = {'pelis': None,
+               'MoviesIds': None,
+               'Producers': None,
+               'Directors': None,
+               'Actors': None,
+               'Genres': None,
+               'Country': None}
+
+    catalog['pelis'] = lt.newList('SINGLE_LINKED', CompareMoviesIds)
+
+    catalog['MoviesIds'] = mp.newMap(500000,
+                                   maptype='CHAINING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapMoviesIds)
+
+    catalog['Producers'] = mp.newMap(500000,
+                                   maptype='CHAINING',
+                                   loadfactor=0.4,
+                                   comparefunction=CompareProducersByName)
+
+    catalog['Directors'] = mp.newMap(500000,
+                                maptype='CHAINING',
+                                loadfactor=0.7,
+                                comparefunction=CompareDirectorsByName)
+
+
+    catalog['Actors'] = mp.newMap(500000,
+                                  maptype='CHAINING',
+                                  loadfactor=0.7,
+                                  comparefunction=CompareActorsByName)
+    catalog['Genres'] = mp.newMap(500000,
+                                 maptype='CHAINING',
+                                 loadfactor=0.7,
+                                 comparefunction=CompareGenresByName)
+
+    catalog['Country'] = mp.newMap(500000,
+                                 maptype='CHAINING',
+                                 loadfactor=0.7,
+                                 comparefunction=CompareCountriesByName)
+
+    return catalog
+
+
+
+# -----------------------------------------------------
+# -----------------------------------------------------
+# Catálogo vacío
+# Catálogo vacío
+# Catálogo vacío
+# -----------------------------------------------------
+# -----------------------------------------------------
+
+
+
 # ==============================
 # Funciones de consulta
 # ==============================
@@ -61,5 +139,108 @@ def getmovie(lst,pos):
 # ==============================
 # Funciones de Comparacion
 # ==============================
+
+def CompareMoviesIds(id1, id2):
+    """
+    Compara dos ids de peliculas
+    """
+    if (id1 == id2):
+        return 0
+    elif id1 > id2:
+        return 1
+    else:
+        return -1
+
+
+def compareMapMoviesIds(id, entry):
+    """
+    Compara dos ids de libros, id es un identificador
+    y entry una pareja llave-valor
+    """
+    identry = me.getKey(entry)
+    if (int(id) == int(identry)):
+        return 0
+    elif (int(id) > int(identry)):
+        return 1
+    else:
+        return -1
+
+
+def CompareProducersByName(keyname, producer):
+    """
+    Compara dos nombres de autor. El primero es una cadena
+    y el segundo un entry de un map
+    """
+    prodentry = me.getKey(producer)
+    if (keyname == prodentry):
+        return 0
+    elif (keyname > prodentry):
+        return 1
+    else:
+        return -1
+
+
+
+def CompareDirectorsByName(keyname, director):
+    """
+    Compara dos nombres de autor. El primero es una cadena
+    y el segundo un entry de un map
+    """
+    direntry = me.getKey(director)
+    if (keyname == direntry):
+        return 0
+    elif (keyname > direntry):
+        return 1
+    else:
+        return -1
+
+
+
+
+def CompareActorsByName(keyname, actor):
+    """
+    Compara dos nombres de autor. El primero es una cadena
+    y el segundo un entry de un map
+    """
+    acentry = me.getKey(actor)
+    if (keyname == acdentry):
+        return 0
+    elif (keyname > acentry):
+        return 1
+    else:
+        return -1
+
+
+
+
+def CompareGenresByName(keyname, genre):
+    """
+    Compara dos nombres de autor. El primero es una cadena
+    y el segundo un entry de un map
+    """
+    genentry = me.getKey(genre)
+    if (keyname == genentry):
+        return 0
+    elif (keyname > genentry):
+        return 1
+    else:
+        return -1
+
+
+
+def CompareCountriesByName(keyname, country):
+    """
+    Compara dos nombres de autor. El primero es una cadena
+    y el segundo un entry de un map
+    """
+    counentry = me.getKey(country)
+    if (keyname == counentry):
+        return 0
+    elif (keyname > counentry):
+        return 1
+    else:
+        return -1
+
+
 
 

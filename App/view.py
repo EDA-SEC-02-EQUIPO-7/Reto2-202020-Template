@@ -38,8 +38,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-csvcasting = "Data/MoviesCastingRaw-small.csv"
-csvdetalles = "Data/SmallMoviesDetailsCleaned.csv"
+csvcasting = "Reto2-202020-Template/Data/MoviesCastingRaw-small.csv"
+csvdetalles = "Reto2-202020-Template/Data/SmallMoviesDetailsCleaned.csv"
 
 
 
@@ -76,9 +76,13 @@ def printMenu():
 
         if int(inputs[0]) == 1:
             
+            #detalles = controller.cargardatosmovies("Reto2-202020-Template/Data/SmallMoviesDetailsCleaned.csv")
+            detalles = controller.cargardatosmovies(csvdetalles)
+            casting = controller.cargardatosmovies(csvcasting)
+            #lo hice de nuevo por variables, ya que eventualmente debemos cargar los dos archivos
 
-            detalles = controller.cargardatosmovies("Data\SmallMoviesDetailsCleaned.csv")
             print ("Se cargaron en total {} peliculas" .format(lt.size(detalles)))
+
             primerelemento = controller.firstmovie(detalles)
             ultimoelemento = controller.lastmovie(detalles)
             muestrainfopeliculas (primerelemento, 1)
@@ -86,7 +90,10 @@ def printMenu():
             
 
         elif int(inputs[0]) == 2:
-            pass
+            catalogo = controller.IniciarCatalogo()
+            print (catalogo['pelis'])
+            print ("se ha cargado el catálogo")
+
 
         elif int(inputs[0]) == 3:
             pass

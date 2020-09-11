@@ -59,3 +59,26 @@ def firstmovie(lst):
     movie=model.getmovie(lst,1)
     return movie
 
+
+
+# ___________________________________________________
+#  Catálogo
+# ___________________________________________________
+
+
+
+def IniciarCatalogo():
+    """
+    Llama la funcion de inicializacion del catalogo del modelo.
+    """
+    # catalog es utilizado para interactuar con el modelo
+    LlamarCatalogo = model.newCatalog()
+    return LlamarCatalogo
+
+
+
+#Se cargan las peliculas desde el csv al catálogo
+
+
+
+
