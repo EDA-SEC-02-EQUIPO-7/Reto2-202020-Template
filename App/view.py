@@ -42,7 +42,6 @@ csvcasting = "Reto2-202020-Template/Data/MoviesCastingRaw-small.csv"
 csvdetalles = "Reto2-202020-Template/Data/SmallMoviesDetailsCleaned.csv"
 
 
-
 # ___________________________________________________
 #  Funciones para imprimir la inforamación de
 #  respuesta.  La vista solo interactua con
@@ -52,11 +51,9 @@ csvdetalles = "Reto2-202020-Template/Data/SmallMoviesDetailsCleaned.csv"
 def muestrainfopeliculas (peliculaparametro, posicionpelicula):
     print ("La película en la posicion {}, corresponde a {}, se estrenó el {}, tiene una votación promedio de {} en un total de {} votos, y su idioma original es {}." .format (str (posicionpelicula), peliculaparametro['original_title'], peliculaparametro['release_date'], peliculaparametro['vote_average'], peliculaparametro['vote_count'], peliculaparametro['original_language']))
 
-
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
-
 
 def printMenu():
     ejecuta = True
@@ -75,27 +72,33 @@ def printMenu():
         inputs = input('\nSeleccione una opción para continuar\n')
 
         if int(inputs[0]) == 1:
+            print ("cargando archivos...")
+            catalog = controller.IniciarCatalogo()
             
             #detalles = controller.cargardatosmovies("Reto2-202020-Template/Data/SmallMoviesDetailsCleaned.csv")
             detalles = controller.cargardatosmovies(csvdetalles)
             casting = controller.cargardatosmovies(csvcasting)
+            controller.cargardatos(catalog,csvdetalles)
             #lo hice de nuevo por variables, ya que eventualmente debemos cargar los dos archivos
 
-            print ("Se cargaron en total {} peliculas" .format(lt.size(detalles)))
-
+            print ("Se cargaron en total  lol peliculas")
+            """
             primerelemento = controller.firstmovie(detalles)
             ultimoelemento = controller.lastmovie(detalles)
             muestrainfopeliculas (primerelemento, 1)
             muestrainfopeliculas (ultimoelemento, lt.size(detalles))
-            
+            """
 
         elif int(inputs[0]) == 2:
-            catalogo = controller.IniciarCatalogo()
-            print (catalogo['pelis'])
+            catalog = controller.IniciarCatalogo()
+            print (catalog['pelis'])
             print ("se ha cargado el catálogo")
-
+            pass
 
         elif int(inputs[0]) == 3:
+            producername = input("Nombre de la productora de interes:\n")
+            producerinfor = controller.getMoviesByProducer(catalog,producername)
+            print (producerinfor)
             pass
 
         elif int(inputs[0]) == 4:
@@ -108,4 +111,3 @@ def printMenu():
             ejecuta = False
 
 printMenu()
-

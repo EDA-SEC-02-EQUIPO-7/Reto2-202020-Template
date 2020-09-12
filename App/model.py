@@ -33,24 +33,21 @@ es decir contiene los modelos con los datos en memoria
 
 """
 
-
 def newlistmovie():
     lst=lt.newList("ARRAY_LIST")
     return lst
-
 
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
-def addmovie(lst,movie):
+def addmovielst(lst,movie):
     lt.addLast(lst,movie)
 
 # Funciones para agregar informacion al catalogo
 
 
 
-
 # -----------------------------------------------------
 # -----------------------------------------------------
 # Catálogo vacío
@@ -58,7 +55,6 @@ def addmovie(lst,movie):
 # Catálogo vacío
 # -----------------------------------------------------
 # -----------------------------------------------------
-
 
 def newCatalog():
     """ Inicializa el catálogo de películas
@@ -99,7 +95,6 @@ def newCatalog():
                                 loadfactor=0.7,
                                 comparefunction=CompareDirectorsByName)
 
-
     catalog['Actors'] = mp.newMap(500000,
                                   maptype='CHAINING',
                                   loadfactor=0.7,
@@ -117,15 +112,49 @@ def newCatalog():
     return catalog
 
 
+# -----------------------------------------------------
+# -----------------------------------------------------
+# Catálogo vacío
+# Catálogo vacío
+# Catálogo vacío
+# -----------------------------------------------------
+# -----------------------------------------------------
+def newProducer (producername):
+    producer = {'name': "", "movies": None,  "vote_average": 0}
+    producer['name'] = producername
+    producer['movies'] = lt.newList('SINGLE_LINKED',CompareProducersByName)
+    return producer
 
-# -----------------------------------------------------
-# -----------------------------------------------------
-# Catálogo vacío
-# Catálogo vacío
-# Catálogo vacío
-# -----------------------------------------------------
-# -----------------------------------------------------
+#Funiones para agregar informacion 
 
+def addmovie (catalog,movie):
+    # Agrega una pelicula a la lista de peliculas (pelis) y en el catalogo (MoviesIds)
+    lt.addLast(catalog["pelis"],movie)
+    mp.put(catalog["MoviesIds"],movie["id"],movie)
+    "Funciones Adicionales de agregar"
+
+def addMovieProducer(catalog, producername, movie):
+    """
+    Esta función adiciona un libro a la lista de libros publicados
+    por un autor.
+    Cuando se adiciona el libro se actualiza el promedio de dicho autor
+    """
+    producers = catalog["Producers"]
+    existproducer = mp.contains(producers,producername)
+    if existproducer:
+        entry = mp.get(producers,producername)
+        producer = me.getValue(entry)
+    else:
+        producer = newProducer(producername)
+        mp.put(producers, producername, producer)
+    lt.addLast(producer["movie"], movie)
+
+    producer_average = producer["vote_average"]
+    movie_average = movie["vote_average"]
+    if ( producer_average == 0.0):
+        producer["vote_average"] = float(movie_average)
+    else:
+        producer["vote_average"] = (producer_average  + float(movie_average)) / 2
 
 
 # ==============================
@@ -135,6 +164,12 @@ def newCatalog():
 def getmovie(lst,pos):
     element=lt.getElement(lst,pos)
     return element
+
+def getMoviesByProducer(catalog,autorname): #Obtiene las peliculas de una productora
+    producer = mp.get(catalog["Producers"],autorname)
+    if producer:
+        return me.getValue(producer)
+    return None
 
 # ==============================
 # Funciones de Comparacion
@@ -151,7 +186,6 @@ def CompareMoviesIds(id1, id2):
     else:
         return -1
 
-
 def compareMapMoviesIds(id, entry):
     """
     Compara dos ids de libros, id es un identificador
@@ -160,11 +194,10 @@ def compareMapMoviesIds(id, entry):
     identry = me.getKey(entry)
     if (int(id) == int(identry)):
         return 0
-    elif (int(id) > int(identry)):
+    elif (int(id) > (int(identry))):
         return 1
     else:
         return -1
-
 
 def CompareProducersByName(keyname, producer):
     """
@@ -178,7 +211,6 @@ def CompareProducersByName(keyname, producer):
         return 1
     else:
         return -1
-
 
 
 def CompareDirectorsByName(keyname, director):
@@ -196,20 +228,18 @@ def CompareDirectorsByName(keyname, director):
 
 
 
-
 def CompareActorsByName(keyname, actor):
     """
     Compara dos nombres de autor. El primero es una cadena
     y el segundo un entry de un map
     """
     acentry = me.getKey(actor)
-    if (keyname == acdentry):
+    if (keyname == acentry):
         return 0
     elif (keyname > acentry):
         return 1
     else:
         return -1
-
 
 
 
@@ -227,7 +257,6 @@ def CompareGenresByName(keyname, genre):
         return -1
 
 
-
 def CompareCountriesByName(keyname, country):
     """
     Compara dos nombres de autor. El primero es una cadena
@@ -240,7 +269,4 @@ def CompareCountriesByName(keyname, country):
         return 1
     else:
         return -1
-
-
-
 

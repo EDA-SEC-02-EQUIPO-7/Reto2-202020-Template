@@ -24,7 +24,6 @@ import config as cf
 from App import model
 import csv
 
-
 """
 El controlador se encarga de mediar entre la vista y el modelo.
 Existen algunas operaciones en las que se necesita invocar
@@ -36,6 +35,18 @@ recae sobre el controlador.
 # ___________________________________________________
 #  TADlista datos
 # ___________________________________________________
+def cargardatos (catalog,moviesfile):
+    loadMovies(moviesfile,catalog)
+
+def loadMovies (file,catalog, sep=";"):
+    dialect = csv.excel()
+    dialect.delimiter=sep
+    try:
+        with open(file, encoding='utf-8-sig') as csvfile:
+            spamreader = csv.DictReader(csvfile, dialect=dialect)
+            for row in spamreader: 
+                model.addmovie(catalog,row)
+                model.addMovieProducer(catalog,row["production_companies"])
 
 def cargardatosmovies (file, sep=";"):
     lst = model.newlistmovie()#Usando implementacion arraylist
@@ -45,10 +56,15 @@ def cargardatosmovies (file, sep=";"):
         with open(file, encoding='utf-8-sig') as csvfile:
             spamreader = csv.DictReader(csvfile, dialect=dialect)
             for row in spamreader: 
-                model.addmovie(lst,row)
+                model.addmoviels(lst,row)
+        
+    
     except:
         print("Hubo un error con la carga del archivo")
-    return lst
+
+# ___________________________________________________
+#  TAD map datos
+# __________________________________________________
 
 
 def lastmovie(lst):
@@ -59,12 +75,9 @@ def firstmovie(lst):
     movie=model.getmovie(lst,1)
     return movie
 
-
-
 # ___________________________________________________
 #  Catálogo
 # ___________________________________________________
-
 
 
 def IniciarCatalogo():
@@ -72,13 +85,14 @@ def IniciarCatalogo():
     Llama la funcion de inicializacion del catalogo del modelo.
     """
     # catalog es utilizado para interactuar con el modelo
-    LlamarCatalogo = model.newCatalog()
-    return LlamarCatalogo
-
+    catalog = model.newCatalog()
+    return catalog
 
 
 #Se cargan las peliculas desde el csv al catálogo
 
+# Funciones Requeromientos 
 
-
-
+def getMoviesByProducer(catalog,producername):
+    producerinfo = model.getMoviesByProducer
+    return producerinfo
