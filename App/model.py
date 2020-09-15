@@ -33,9 +33,8 @@ es decir contiene los modelos con los datos en memoria
 
 """
 
-def newlistmovie():
-    lst=lt.newList("ARRAY_LIST")
-    return lst
+def newmovie():
+    lista=lt.newList('SINGLE_LINKED')
 
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
@@ -130,7 +129,7 @@ def newProducer (producername):
 def addmovie (catalog,movie):
     # Agrega una pelicula a la lista de peliculas (pelis) y en el catalogo (MoviesIds)
     lt.addLast(catalog["pelis"],movie)
-    mp.put(catalog["MoviesIds"],movie["id"],movie["id"])
+    mp.put(catalog["MoviesIds"],movie["id"],movie["original_title"])
     "Funciones Adicionales de agregar"
 
 def addMovieProducer(catalog, producername, movie):
@@ -142,7 +141,7 @@ def addMovieProducer(catalog, producername, movie):
     else:
         producer = newProducer(producername)
         mp.put(producers, producername, producer)
-    lt.addLast(producer["movies"], movie["id"])
+    lt.addLast(producer["movies"], movie["original_title"])
 
     producer_average = producer["vote_average"]
     movie_average = movie["vote_average"]
@@ -164,6 +163,11 @@ def getMoviesByProducer(catalog,autorname): #Obtiene las peliculas de una produc
     producer = mp.get(catalog["Producers"],autorname)
     if producer:
         return me.getValue(producer)
+    return None
+def getMoviesByid(catalog,id):
+    title=mp.get(catalog['MoviesIds'],id)
+    if title:
+        return me.getValue(title)
     return None
 
 # ==============================

@@ -75,31 +75,22 @@ def printMenu():
             print ("cargando archivos...")
             catalog = controller.IniciarCatalogo()
             
-            #detalles = controller.cargardatosmovies("Reto2-202020-Template/Data/SmallMoviesDetailsCleaned.csv")
-            detalles = controller.cargardatosmovies(csvdetalles)
-            casting = controller.cargardatosmovies(csvcasting)
-            controller.cargardatos(catalog,csvdetalles)
-            #lo hice de nuevo por variables, ya que eventualmente debemos cargar los dos archivos
-
-            print (lt.size(catalog["pelis"]))
-            """
-            primerelemento = controller.firstmovie(detalles)
-            ultimoelemento = controller.lastmovie(detalles)
-            muestrainfopeliculas (primerelemento, 1)
-            muestrainfopeliculas (ultimoelemento, lt.size(detalles))
-            """
+            
             
 
         elif int(inputs[0]) == 2:
-            catalog = controller.IniciarCatalogo()
-            print (catalog['pelis'])
-            print ("se ha cargado el catálogo")
+            controller.cargardatos(catalog,csvdetalles)
+            print (lt.size(catalog["pelis"]))
             pass
 
         elif int(inputs[0]) == 3:
             producername = input("Nombre de la productora de interes:\n")
             producerinfor = controller.getMoviesByProducer(catalog,producername)
-            print (producerinfor)
+            iterator = it.newIterator(producerinfor["movies"])                     
+            while  it.hasNext(iterator):
+                element = it.next(iterator)
+                print(element)
+            print(producerinfor["vote_average"])
             pass
 
         elif int(inputs[0]) == 4:
