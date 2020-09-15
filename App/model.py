@@ -55,6 +55,9 @@ def addmovielst(lst,movie):
 # -----------------------------------------------------
 # -----------------------------------------------------
 
+#'CHAINING'
+#"PROBING"
+
 def newCatalog():
     """ Inicializa el catálogo de películas
 
@@ -80,32 +83,32 @@ def newCatalog():
     catalog['pelis'] = lt.newList('SINGLE_LINKED', CompareMoviesIds)
 
     catalog['MoviesIds'] = mp.newMap(500000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
+                                   maptype='PROBING',
+                                   loadfactor=0.5,
                                    comparefunction=compareMapMoviesIds)
 
     catalog['Producers'] = mp.newMap(500000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
+                                   maptype='PROBING',
+                                   loadfactor=0.5,
                                    comparefunction=CompareProducersByName)
 
     catalog['Directors'] = mp.newMap(500000,
-                                maptype='CHAINING',
-                                loadfactor=0.7,
+                                maptype='PROBING',
+                                loadfactor=0.5,
                                 comparefunction=CompareDirectorsByName)
 
     catalog['Actors'] = mp.newMap(500000,
-                                  maptype='CHAINING',
-                                  loadfactor=0.7,
+                                  maptype='PROBING',
+                                  loadfactor=0.5,
                                   comparefunction=CompareActorsByName)
     catalog['Genres'] = mp.newMap(500000,
-                                 maptype='CHAINING',
-                                 loadfactor=0.7,
+                                 maptype='PROBING',
+                                 loadfactor=0.5,
                                  comparefunction=CompareGenresByName)
 
     catalog['Country'] = mp.newMap(500000,
-                                 maptype='CHAINING',
-                                 loadfactor=0.7,
+                                 maptype='PROBING',
+                                 loadfactor=0.5,
                                  comparefunction=CompareCountriesByName)
 
     return catalog

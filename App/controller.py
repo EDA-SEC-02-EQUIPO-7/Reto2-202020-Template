@@ -97,15 +97,18 @@ def IniciarCatalogo():
 
 # Funciones Requeromientos 
 
-"""def getMoviesByProducer(catalog,producername):
+def getMoviesByProducer(catalog,producername):
     producerinfo = model.getMoviesByProducer(catalog,producername)
-    return producerinfo"""
+    return producerinfo
 
-"""def getMovieByid(catalog,lista,id):
+"""
+
+def getMovieByid(catalog,lista,id):
     lista=
     iterator = it.newIterator(lista)                     
     while  it.hasNext(iterator):
         element = it.next(iterator)
         model.getMoviesByid(catalog,id)
-    return"""
+    return 
 
+"""

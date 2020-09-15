@@ -27,6 +27,8 @@ from DISClib.DataStructures import listiterator as it
 from App import controller
 assert config
 
+from time import process_time
+
 """
 La vista se encarga de la interacción con el usuario.
 Presenta el menu de opciones y por cada seleccion
@@ -38,8 +40,10 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-csvcasting = "Data/MoviesCastingRaw-small.csv"
-csvdetalles = "Data/SmallMoviesDetailsCleaned.csv"
+csvcasting = "Reto2-202020-Template/Data/AllMoviesCastingRaw.csv"
+csvdetalles = "Reto2-202020-Template/Data/AllMoviesDetailsCleaned.csv"
+#SmallMoviesDetailsCleaned.csv
+#MoviesCastingRaw-small.csv
 
 
 # ___________________________________________________
@@ -73,25 +77,33 @@ def printMenu():
 
         if int(inputs[0]) == 1:
             print ("cargando archivos...")
+            tempcatalogostart = process_time() #inicia temporizador 
             catalog = controller.IniciarCatalogo()
-            
-            
+            tempcatalogostop = process_time() #Termina temporizador
+            print("\nCatálogo vacío creado, tiempo de carga: ",tempcatalogostop-tempcatalogostart," segundos")
             
 
         elif int(inputs[0]) == 2:
+            tempcargastart = process_time()
             controller.cargardatos(catalog,csvdetalles)
-            print (lt.size(catalog["pelis"]))
-            pass
+            tempcargastop = process_time()
+            print("\nSe cargaron en total {} datos al catálogo, tiempo de carga: {} segundos" .format(lt.size(catalog["pelis"]),tempcargastop-tempcargastart))
+            #print (lt.size(catalog["pelis"]))
 
         elif int(inputs[0]) == 3:
             producername = input("Nombre de la productora de interes:\n")
+            tempconsultstart = process_time() #inicia temporizador
             producerinfor = controller.getMoviesByProducer(catalog,producername)
-            iterator = it.newIterator(producerinfor["movies"])                     
+            iterator = it.newIterator(producerinfor["movies"])  
+            print ("\nLas películas que han sido creadas por {}, son:\n".format(producername))  
+            indicepelicula = 0                 
             while  it.hasNext(iterator):
                 element = it.next(iterator)
-                print(element)
-            print(producerinfor["vote_average"])
-            pass
+                indicepelicula += 1
+                print(str(indicepelicula) + ".  " + element)
+            print("\nEstas películas tuvieron un promedio de votación de: {}" .format(round(producerinfor["vote_average"], 3)))
+            tempconsultstop = process_time() #termina temporizador
+            print("\nEl tiempo que tardó esta consulta es de: {} segundos" .format(tempconsultstop-tempconsultstart))
 
         elif int(inputs[0]) == 4:
             pass
