@@ -120,9 +120,9 @@ def newCatalog():
 # -----------------------------------------------------
 # -----------------------------------------------------
 def newProducer (producername):
-    producer = {'name': "", "movies": None,  "vote_average": 0}
+    producer = {'name': None , "movies": None,  "vote_average": 0}
     producer['name'] = producername
-    producer['movies'] = lt.newList('SINGLE_LINKED',CompareProducersByName)
+    producer['movies'] = lt.newList("ARRAY_LIST",CompareMoviesIds)
     return producer
 
 #Funiones para agregar informacion 
@@ -130,24 +130,19 @@ def newProducer (producername):
 def addmovie (catalog,movie):
     # Agrega una pelicula a la lista de peliculas (pelis) y en el catalogo (MoviesIds)
     lt.addLast(catalog["pelis"],movie)
-    mp.put(catalog["MoviesIds"],movie["id"],movie)
+    mp.put(catalog["MoviesIds"],movie["id"],movie["id"])
     "Funciones Adicionales de agregar"
 
 def addMovieProducer(catalog, producername, movie):
-    """
-    Esta función adiciona un libro a la lista de libros publicados
-    por un autor.
-    Cuando se adiciona el libro se actualiza el promedio de dicho autor
-    """
     producers = catalog["Producers"]
-    existproducer = mp.contains(producers,producername)
+    existproducer = mp.contains(catalog["Producers"],producername)
     if existproducer:
         entry = mp.get(producers,producername)
         producer = me.getValue(entry)
     else:
         producer = newProducer(producername)
         mp.put(producers, producername, producer)
-    lt.addLast(producer["movie"], movie)
+    lt.addLast(producer["movies"], movie["id"])
 
     producer_average = producer["vote_average"]
     movie_average = movie["vote_average"]

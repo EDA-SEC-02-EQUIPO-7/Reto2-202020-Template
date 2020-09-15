@@ -46,7 +46,10 @@ def loadMovies (file,catalog, sep=";"):
             spamreader = csv.DictReader(csvfile, dialect=dialect)
             for row in spamreader: 
                 model.addmovie(catalog,row)
-                model.addMovieProducer(catalog,row["production_companies"])
+                producername = row["production_companies"]
+                model.addMovieProducer(catalog,producername,row)
+    except:
+        print("Hubo un error con la carga del archivo")
 
 def cargardatosmovies (file, sep=";"):
     lst = model.newlistmovie()#Usando implementacion arraylist
@@ -56,11 +59,12 @@ def cargardatosmovies (file, sep=";"):
         with open(file, encoding='utf-8-sig') as csvfile:
             spamreader = csv.DictReader(csvfile, dialect=dialect)
             for row in spamreader: 
-                model.addmoviels(lst,row)
-        
-    
+                model.addmovielst(lst,row)
     except:
         print("Hubo un error con la carga del archivo")
+        
+    
+
 
 # ___________________________________________________
 #  TAD map datos
@@ -94,5 +98,6 @@ def IniciarCatalogo():
 # Funciones Requeromientos 
 
 def getMoviesByProducer(catalog,producername):
-    producerinfo = model.getMoviesByProducer
+    producerinfo = model.getMoviesByProducer(catalog,producername)
     return producerinfo
+
