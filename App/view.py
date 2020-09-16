@@ -42,8 +42,6 @@ operación seleccionada.
 
 csvcasting = "Reto2-202020-Template/Data/AllMoviesCastingRaw.csv"
 csvdetalles = "Reto2-202020-Template/Data/AllMoviesDetailsCleaned.csv"
-#SmallMoviesDetailsCleaned.csv
-#MoviesCastingRaw-small.csv
 
 
 # ___________________________________________________
