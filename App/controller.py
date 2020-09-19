@@ -35,10 +35,10 @@ recae sobre el controlador.
 # ___________________________________________________
 #  TADlista datos
 # ___________________________________________________
-def cargardatos (catalog,moviesfile):
-    loadMovies(moviesfile,catalog)
+def cargardatos (catalog,moviesfile,file2):
+    loadMovies(catalog,moviesfile,file2)
 
-def loadMovies (file,catalog, sep=";"):
+def loadMovies (catalog,file,file2, sep=";"):
     dialect = csv.excel()
     dialect.delimiter=sep
     try:
@@ -48,6 +48,22 @@ def loadMovies (file,catalog, sep=";"):
                 model.addmovie(catalog,row)
                 producername = row["production_companies"]
                 model.addMovieProducer(catalog,producername,row)
+    except:
+        print("Hubo un error con la carga del archivo")
+    try:
+        with open(file2,encoding='utf-8-sig') as csvfile:
+            spamreader = csv.DictReader(csvfile, dialect=dialect)
+            for row in spamreader:
+                actor1=row["actor1_name"]
+                actor2=row["actor2_name"]
+                actor3=row["actor3_name"]
+                actor4=row["actor4_name"]
+                actor5=row["actor5_name"]
+                model.addMovieActor(catalog,actor1,row)
+                model.addMovieActor(catalog,actor2,row)
+                model.addMovieActor(catalog,actor3,row)
+                model.addMovieActor(catalog,actor4,row)
+                model.addMovieActor(catalog,actor5,row)
     except:
         print("Hubo un error con la carga del archivo")
 
@@ -100,6 +116,10 @@ def IniciarCatalogo():
 def getMoviesByProducer(catalog,producername):
     producerinfo = model.getMoviesByProducer(catalog,producername)
     return producerinfo
+
+def getMoviesByActor(catalog,actorname):
+    info=model.getMoviesByActor(catalog,actorname)
+    return info
 
 """
 

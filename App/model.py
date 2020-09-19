@@ -127,6 +127,12 @@ def newProducer (producername):
     producer['movies'] = lt.newList("ARRAY_LIST",CompareMoviesIds)
     return producer
 
+def newActor(actorname):
+    actor = {'name': None , "movies": None,  "vote_average": 0}
+    actor['name'] = actorname
+    actor['movies'] = lt.newList("ARRAY_LIST",CompareMoviesIds)
+    return actor
+
 #Funiones para agregar informacion 
 
 def addmovie (catalog,movie):
@@ -153,6 +159,18 @@ def addMovieProducer(catalog, producername, movie):
     else:
         producer["vote_average"] = (producer_average  + float(movie_average)) / 2
 
+def addMovieActor(catalog,actorname,movie):
+    actors= catalog["Actors"]
+    exist=mp.contains(catalog["Actors"],actorname)
+    if exist:
+        entry=mp.get(actors,actorname)
+        actor=me.getValue(entry)
+    else:
+        actor=newActor(actorname)
+        mp.put(actors,actorname,actor)
+    lt.addLast(actor["movies"],movie["id"])
+
+
 
 # ==============================
 # Funciones de consulta
@@ -167,6 +185,13 @@ def getMoviesByProducer(catalog,autorname): #Obtiene las peliculas de una produc
     if producer:
         return me.getValue(producer)
     return None
+
+def getMoviesByActor(catalog,actorname): #Obtiene las peliculas de una productora
+    actor = mp.get(catalog["Actors"],actorname)
+    if actor:
+        return me.getValue(actor)
+    return None
+
 def getMoviesByid(catalog,id):
     title=mp.get(catalog['MoviesIds'],id)
     if title:
@@ -271,4 +296,3 @@ def CompareCountriesByName(keyname, country):
         return 1
     else:
         return -1
-

@@ -40,8 +40,8 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-csvcasting = "Reto2-202020-Template/Data/AllMoviesCastingRaw.csv"
-csvdetalles = "Reto2-202020-Template/Data/AllMoviesDetailsCleaned.csv"
+csvcasting = "Data\AllMoviesCastingRaw.csv"
+csvdetalles = "Data\AllMoviesDetailsCleaned.csv"
 
 
 # ___________________________________________________
@@ -83,7 +83,7 @@ def printMenu():
 
         elif int(inputs[0]) == 2:
             tempcargastart = process_time()
-            controller.cargardatos(catalog,csvdetalles)
+            controller.cargardatos(catalog,csvdetalles,csvcasting)
             tempcargastop = process_time()
             print("\nSe cargaron en total {} datos al catálogo, tiempo de carga: {} segundos" .format(lt.size(catalog["pelis"]),tempcargastop-tempcargastart))
             #print (lt.size(catalog["pelis"]))
@@ -104,6 +104,11 @@ def printMenu():
             print("\nEl tiempo que tardó esta consulta es de: {} segundos" .format(tempconsultstop-tempconsultstart))
 
         elif int(inputs[0]) == 4:
+            actorname = input("Nombre del actor de interes:\n")
+            tempconsultstart = process_time() #inicia temporizador
+            actorinfor = controller.getMoviesByActor(catalog,actorname)
+            print(actorinfor)
+            tempconsultstop = process_time() #termina temporizador
             pass
 
         elif int(inputs[0]) == 5:
