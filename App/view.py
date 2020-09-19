@@ -104,14 +104,23 @@ def printMenu():
             print("\nEl tiempo que tardó esta consulta es de: {} segundos" .format(tempconsultstop-tempconsultstart))
 
         elif int(inputs[0]) == 4:
-            actorname = input("Nombre del actor de interes:\n")
-            tempconsultstart = process_time() #inicia temporizador
-            actorinfor = controller.getMoviesByActor(catalog,actorname)
-            print(actorinfor)
-            tempconsultstop = process_time() #termina temporizador
+
             pass
 
         elif int(inputs[0]) == 5:
+            actorname = input("Nombre del actor de interes:\n")
+            actorinfor = controller.getMoviesByActor(catalog,actorname)
+            iterator=it.newIterator(actorinfor["movies"])
+            print("Las peliculas en las que ha actuado" + actorname + "son : ")
+            suma= 0
+            while it.hasNext(iterator):
+                element=it.next(iterator)
+                movie=controller.getMovieByid(catalog,element)
+                print("->"+movie["original_title"])
+                suma +=float((movie["vote_average"]))
+            print("La cantidad de peliculas en las que ha actuado es "+str(lt.size(actorinfor["movies"])))
+            print("El promedio de votacion de todas sus peliculas es "+str(round(suma/lt.size(actorinfor["movies"]),2)))
+            print("El director con el que más ha participado es "+actorinfor["director"])
             pass
         
         elif int(inputs[0]) == 0:

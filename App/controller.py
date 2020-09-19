@@ -121,14 +121,9 @@ def getMoviesByActor(catalog,actorname):
     info=model.getMoviesByActor(catalog,actorname)
     return info
 
-"""
 
-def getMovieByid(catalog,lista,id):
-    lista=
-    iterator = it.newIterator(lista)                     
-    while  it.hasNext(iterator):
-        element = it.next(iterator)
-        model.getMoviesByid(catalog,id)
-    return 
+def getMovieByid(catalog,id):
+    movie=model.getMoviesByid(catalog,id)
+    return movie
 
-"""
+
