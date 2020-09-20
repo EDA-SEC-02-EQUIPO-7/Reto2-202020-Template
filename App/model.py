@@ -139,7 +139,20 @@ def newActor(actorname):
     actor["director"]=""
     return actor
 
+
+
+def newDirector (DirectorName):
+    EachDirector = {'name': None , "movies": None}
+    EachDirector['name'] = DirectorName
+    EachDirector['movies'] = lt.newList("ARRAY_LIST",CompareMoviesIds)
+    return EachDirector
+
+
+#================================
+#Funiones para agregar informacion
 #Funiones para agregar informacion 
+#Funiones para agregar informacion  
+#================================
 
 def addmovie (catalog,movie):
     # Agrega una pelicula a la lista de peliculas (pelis) y en el catalogo (MoviesIds)
@@ -190,6 +203,23 @@ def addMovieActor(catalog,actorname,movie):
 
 
 
+def addMovieDirector(catalog, DirectorName, movie):
+
+    MapDirectorsInCatalog = catalog["Directors"]
+    ExistDirector = mp.contains(MapDirectorsInCatalog,DirectorName)
+
+    if ExistDirector:
+        entry = mp.get(MapDirectorsInCatalog,DirectorName)
+        MovieDirector = me.getValue(entry)
+
+    else:
+        MovieDirector = newDirector(DirectorName)
+        mp.put(MapDirectorsInCatalog, DirectorName, MovieDirector)
+
+    lt.addLast(MovieDirector["movies"], movie["id"])
+    
+
+
 
 
 # ==============================
@@ -211,6 +241,20 @@ def getMoviesByActor(catalog,actorname): #Obtiene las peliculas de una productor
     if actor:
         return me.getValue(actor)
     return None
+
+
+
+
+
+def getMoviesByDirector(catalog,DirectorName): #Obtiene las peliculas de una productora
+    aDirector = mp.get(catalog["Directors"],DirectorName)
+    if aDirector:
+        return me.getValue(aDirector)
+    return None
+
+
+
+
 
 def getMoviesByid(catalog,id):
     title=mp.get(catalog['MoviesIds'],id)

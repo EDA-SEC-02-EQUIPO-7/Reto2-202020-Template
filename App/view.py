@@ -40,8 +40,12 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-csvcasting = "Data\AllMoviesCastingRaw.csv"
-csvdetalles = "Data\AllMoviesDetailsCleaned.csv"
+#csvcasting = "Data\AllMoviesCastingRaw.csv"
+#csvdetalles = "Data\AllMoviesDetailsCleaned.csv"
+#csvcasting = "Reto2-202020-Template/Data/MoviesCastingRaw-small.csv"
+#csvdetalles = "Reto2-202020-Template/Data/SmallMoviesDetailsCleaned.csv"
+csvcasting = "Reto2-202020-Template/Data/AllMoviesCastingRaw.csv"
+csvdetalles = "Reto2-202020-Template/Data/AllMoviesDetailsCleaned.csv"
 
 
 # ___________________________________________________
@@ -104,8 +108,22 @@ def printMenu():
             print("\nEl tiempo que tardó esta consulta es de: {} segundos" .format(tempconsultstop-tempconsultstart))
 
         elif int(inputs[0]) == 4:
+            DirectorName = input("Ingrese el nombre del director para el cual quiera conocer sus películas:\n")
+            ValueDirector = controller.getMoviesByDirector(catalog,DirectorName)
+
+            iterator=it.newIterator(ValueDirector["movies"])
+            print("\n{} ha dirigido en total {} peliculas, estas son:\n" .format(DirectorName, (ValueDirector['movies']['size'])))
+            sumatoria = 0
+            while it.hasNext(iterator):
+                element=it.next(iterator)
+                movie=controller.getMovieByid(catalog,element)
+                print("-> "+ movie["original_title"])
+                sumatoria += float((movie["vote_average"]))
+
+            print ("\nEstas películas tuvieron una votación promedio de {}." .format (str ( round ( (sumatoria/ValueDirector['movies']['size']) ,2))))
 
             pass
+            #Aki Kaurismäki
 
         elif int(inputs[0]) == 5:
             actorname = input("Nombre del actor de interes:\n")

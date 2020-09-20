@@ -67,6 +67,20 @@ def loadMovies (catalog,file,file2, sep=";"):
     except:
         print("Hubo un error con la carga del archivo")
 
+
+
+    #print ("*Cargando información de directores")
+    try:
+        with open(file2, encoding='utf-8-sig') as csvfile:
+            spamreader = csv.DictReader(csvfile, dialect=dialect)
+            for row in spamreader: 
+                DirectorName = row["director_name"]               
+                model.addMovieDirector(catalog,DirectorName,row)
+    except:
+        print("No fue posible cargar la información de los directores")
+
+
+
 def cargardatosmovies (file, sep=";"):
     lst = model.newlistmovie()#Usando implementacion arraylist
     dialect = csv.excel()
@@ -120,6 +134,13 @@ def getMoviesByProducer(catalog,producername):
 def getMoviesByActor(catalog,actorname):
     info=model.getMoviesByActor(catalog,actorname)
     return info
+
+
+
+def getMoviesByDirector(catalog,DirectorName):
+    info=model.getMoviesByDirector(catalog,DirectorName)
+    return info
+
 
 
 def getMovieByid(catalog,id):
