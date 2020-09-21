@@ -40,12 +40,12 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-#csvcasting = "Data\AllMoviesCastingRaw.csv"
-#csvdetalles = "Data\AllMoviesDetailsCleaned.csv"
+csvcasting = "Data\AllMoviesCastingRaw.csv"
+csvdetalles = "Data\AllMoviesDetailsCleaned.csv"
 #csvcasting = "Reto2-202020-Template/Data/MoviesCastingRaw-small.csv"
 #csvdetalles = "Reto2-202020-Template/Data/SmallMoviesDetailsCleaned.csv"
-csvcasting = "Reto2-202020-Template/Data/AllMoviesCastingRaw.csv"
-csvdetalles = "Reto2-202020-Template/Data/AllMoviesDetailsCleaned.csv"
+#csvcasting = "Reto2-202020-Template/Data/AllMoviesCastingRaw.csv"
+#csvdetalles = "Reto2-202020-Template/Data/AllMoviesDetailsCleaned.csv"
 
 
 # ___________________________________________________

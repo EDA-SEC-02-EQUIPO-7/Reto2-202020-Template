@@ -64,20 +64,14 @@ def loadMovies (catalog,file,file2, sep=";"):
                 model.addMovieActor(catalog,actor3,row)
                 model.addMovieActor(catalog,actor4,row)
                 model.addMovieActor(catalog,actor5,row)
+                DirectorName = row["director_name"]               
+                model.addMovieDirector(catalog,DirectorName,row)
     except:
         print("Hubo un error con la carga del archivo")
 
 
 
-    #print ("*Cargando información de directores")
-    try:
-        with open(file2, encoding='utf-8-sig') as csvfile:
-            spamreader = csv.DictReader(csvfile, dialect=dialect)
-            for row in spamreader: 
-                DirectorName = row["director_name"]               
-                model.addMovieDirector(catalog,DirectorName,row)
-    except:
-        print("No fue posible cargar la información de los directores")
+    
 
 
 

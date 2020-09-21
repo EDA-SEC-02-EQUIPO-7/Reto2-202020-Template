@@ -131,7 +131,7 @@ def newActor(actorname):
     actor = {'name': None , "movies": None,  "vote_average": 0}
     actor['name'] = actorname
     actor['movies'] = lt.newList("ARRAY_LIST",CompareMoviesIds)
-    actor["direc"]=mp.newMap(7,
+    actor["direc"]=mp.newMap(1,
                                 maptype='PROBING',
                                 loadfactor=0.5,
                                 comparefunction=CompareDirectorsByName)
@@ -179,27 +179,30 @@ def addMovieProducer(catalog, producername, movie):
         producer["vote_average"] = (producer_average  + float(movie_average)) / 2
 
 def addMovieActor(catalog,actorname,movie):
-    actors= catalog["Actors"]
-    exist=mp.contains(catalog["Actors"],actorname)
-    if exist:
-        entry=mp.get(actors,actorname)
-        actor=me.getValue(entry)
+    if actorname=="None":
+        None
     else:
-        actor=newActor(actorname)
-        mp.put(actors,actorname,actor)
-    lt.addLast(actor["movies"],movie["id"])
-    exi=mp.contains(actor["direc"],movie["director_name"])
-    if exi:
+        actors= catalog["Actors"]
+        exist=mp.contains(catalog["Actors"],actorname)
+        if exist:
+            entry=mp.get(actors,actorname)
+            actor=me.getValue(entry)
+        else:
+            actor=newActor(actorname)
+            mp.put(actors,actorname,actor)
+        lt.addLast(actor["movies"],movie["id"])
+        exi=mp.contains(actor["direc"],movie["director_name"])
+        if exi:
+            entry=mp.get(actor["direc"],movie["director_name"])
+            part=me.getValue(entry)
+            mp.put(actor["direc"],movie["director_name"],part+1)
+        else:
+            mp.put(actor["direc"],movie["director_name"],1)
         entry=mp.get(actor["direc"],movie["director_name"])
-        part=me.getValue(entry)
-        mp.put(actor["direc"],movie["director_name"],part+1)
-    else:
-        mp.put(actor["direc"],movie["director_name"],1)
-    entry=mp.get(actor["direc"],movie["director_name"])
-    par=me.getValue(entry)
-    if par>actor["mayor"]:
-        actor["mayor"]=par
-        actor["director"]=me.getKey(entry)
+        par=me.getValue(entry)
+        if par>actor["mayor"]:
+            actor["mayor"]=par
+            actor["director"]=me.getKey(entry)
 
 
 
