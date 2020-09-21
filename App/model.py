@@ -147,6 +147,12 @@ def newDirector (DirectorName):
     EachDirector['movies'] = lt.newList("ARRAY_LIST",CompareMoviesIds)
     return EachDirector
 
+def newCountry (CountryName):
+    EachCountry = {'name': None , "movies": None}
+    EachCountry['name'] = CountryName
+    EachCountry['movies'] = lt.newList("ARRAY_LIST",CompareMoviesIds)
+    return EachCountry
+
 
 #================================
 #Funiones para agregar informacion
@@ -220,6 +226,8 @@ def addMovieDirector(catalog, DirectorName, movie):
         mp.put(MapDirectorsInCatalog, DirectorName, MovieDirector)
 
     lt.addLast(MovieDirector["movies"], movie["id"])
+
+
     
 def addMovieGenre (catalog,genrename,movie):
     genresmap = catalog["Genres"]
@@ -237,6 +245,29 @@ def addMovieGenre (catalog,genrename,movie):
         genre["vote_average"] = float(movie_average)
     else:
         genre["vote_average"] = (genre_average  + float(movie_average)) / 2
+
+
+
+
+def addMovieCountry(catalog, CountryName, movie):
+
+    
+    MapCountriesInCatalog = catalog['Country']
+    ExistsThatCountry = mp.contains(MapCountriesInCatalog,CountryName)
+
+    if ExistsThatCountry:
+        entry = mp.get(MapCountriesInCatalog,CountryName)
+        ProductionCountry = me.getValue(entry)
+
+    else:
+        ProductionCountry = newCountry(CountryName)
+        mp.put(MapCountriesInCatalog, CountryName, ProductionCountry)
+
+    lt.addLast(ProductionCountry["movies"], movie["id"])
+
+
+
+
 
 
 # ==============================
@@ -270,6 +301,15 @@ def getMoviesByGenre (catalog,genrename):
     if genre:
         return me.getValue(genre)
     return None
+
+
+def getMoviesByCountry(catalog,CountryNameParameter): #Obtiene las peliculas de una productora
+    aCountry = mp.get(catalog["Country"],CountryNameParameter)
+    if aCountry:
+        return me.getValue(aCountry)
+    return None
+
+
 
 def getMoviesByid(catalog,id):
     title=mp.get(catalog['MoviesIds'],id)

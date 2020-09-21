@@ -40,10 +40,10 @@ operación seleccionada.
 #  Ruta a los archivos
 # ___________________________________________________
 
-csvcasting = "Data\AllMoviesCastingRaw.csv"
-csvdetalles = "Data\AllMoviesDetailsCleaned.csv"
-#csvcasting = "Reto2-202020-Template/Data/MoviesCastingRaw-small.csv"
-#csvdetalles = "Reto2-202020-Template/Data/SmallMoviesDetailsCleaned.csv"
+#csvcasting = "Data\AllMoviesCastingRaw.csv"
+#csvdetalles = "Data\AllMoviesDetailsCleaned.csv"
+csvcasting = "Reto2-202020-Template/Data/MoviesCastingRaw-small.csv"
+csvdetalles = "Reto2-202020-Template/Data/SmallMoviesDetailsCleaned.csv"
 #csvcasting = "Reto2-202020-Template/Data/AllMoviesCastingRaw.csv"
 #csvdetalles = "Reto2-202020-Template/Data/AllMoviesDetailsCleaned.csv"
 
@@ -140,6 +140,8 @@ def printMenu():
             print("El promedio de votacion de todas sus peliculas es "+str(round(suma/lt.size(actorinfor["movies"]),2)))
             print("El director con el que más ha participado es "+actorinfor["director"])
             pass
+
+
         elif int(inputs[0]) == 6:
             name = input("Nombre de el genero de interes\n")
             tempconsultstart = process_time() #inicia temporizador
@@ -153,7 +155,23 @@ def printMenu():
                 print(str(indicepelicula) + ".  " + element)
             print("\nEstas películas tuvieron un promedio de votación de: {}" .format(round(genreinfo["vote_average"], 3)))
             tempconsultstop = process_time() #termina temporizador
-            print("\nEl tiempo que tardó esta consulta es de: {} segundos" .format(tempconsultstop-tempconsultstart))      
+            print("\nEl tiempo que tardó esta consulta es de: {} segundos" .format(tempconsultstop-tempconsultstart))   
+
+
+        elif int(inputs[0]) == 7:
+            CountryName = input("Ingrese el nombre del país para el cual le interese conocer las películas que allí fueron producidas:\n")
+            ValuePerCountry = controller.getMoviesByCountry(catalog,CountryName)
+
+            iterator=it.newIterator(ValuePerCountry["movies"])
+            print("\nEn {} se han producido en total {} peliculas, estas son:\n" .format(CountryName, (ValuePerCountry['movies']['size'])))
+            while it.hasNext(iterator):
+                element=it.next(iterator)
+                movie=controller.getMovieByid(catalog,element)
+                print("-> "+ movie["original_title"])
+
+            # Finland 
+
+
         elif int(inputs[0]) == 0:
             ejecuta = False
 

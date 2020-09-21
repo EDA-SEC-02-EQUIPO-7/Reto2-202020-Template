@@ -81,6 +81,18 @@ def loadMovies (catalog,file,file2, sep=";"):
     except:
         print("No fue posible cargar los generos")
 
+        
+
+    print ("Cargando información de los paises de producción...")
+    try:
+        with open(file, encoding='utf-8-sig') as csvfile:
+            spamreader = csv.DictReader(csvfile, dialect=dialect)
+            for row in spamreader:               
+                EachCountry = row["production_countries"]
+                model.addMovieCountry(catalog,EachCountry,row)
+    except:
+        print("No fue posible cargar la información de los paises de producción")
+
 
 
 
@@ -145,6 +157,10 @@ def getMoviesByDirector(catalog,DirectorName):
 def getMoviesByGenre (catalog,genrename):
     genreinfo = model.getMoviesByGenre(catalog,genrename)
     return genreinfo
+
+def getMoviesByCountry (catalog,CountryName):
+    InfoPerCountry = model.getMoviesByCountry(catalog,CountryName)
+    return InfoPerCountry
 
 def getMovieByid(catalog,id):
     movie=model.getMoviesByid(catalog,id)
