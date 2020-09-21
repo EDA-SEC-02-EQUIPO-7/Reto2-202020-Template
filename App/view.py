@@ -140,7 +140,20 @@ def printMenu():
             print("El promedio de votacion de todas sus peliculas es "+str(round(suma/lt.size(actorinfor["movies"]),2)))
             print("El director con el que más ha participado es "+actorinfor["director"])
             pass
-        
+        elif int(inputs[0]) == 6:
+            name = input("Nombre de el genero de interes\n")
+            tempconsultstart = process_time() #inicia temporizador
+            genreinfo = controller.getMoviesByGenre(catalog,name)
+            iterator = it.newIterator(genreinfo["movies"])  
+            print ("\nLas películas que pertenecen al genero {}, son:\n".format(name))  
+            indicepelicula = 0                 
+            while  it.hasNext(iterator):
+                element = it.next(iterator)
+                indicepelicula += 1
+                print(str(indicepelicula) + ".  " + element)
+            print("\nEstas películas tuvieron un promedio de votación de: {}" .format(round(genreinfo["vote_average"], 3)))
+            tempconsultstop = process_time() #termina temporizador
+            print("\nEl tiempo que tardó esta consulta es de: {} segundos" .format(tempconsultstop-tempconsultstart))      
         elif int(inputs[0]) == 0:
             ejecuta = False
 

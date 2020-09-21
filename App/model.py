@@ -221,8 +221,22 @@ def addMovieDirector(catalog, DirectorName, movie):
 
     lt.addLast(MovieDirector["movies"], movie["id"])
     
-
-
+def addMovieGenre (catalog,genrename,movie):
+    genresmap = catalog["Genres"]
+    existgenre = mp.contains(catalog["Genres"],genrename)
+    if existgenre:
+        entry = mp.get(genresmap,genrename)
+        genre = me.getValue(entry)
+    else:
+        genre = newGenre(genrename)
+        mp.put(genresmap,genrename,genre)
+    lt.addLast(genre["movies"], movie["original_title"])
+    genre_average = genre["vote_average"]
+    movie_average = movie["vote_average"]
+    if ( genre_average == 0.0):
+        genre["vote_average"] = float(movie_average)
+    else:
+        genre["vote_average"] = (genre_average  + float(movie_average)) / 2
 
 
 # ==============================
@@ -245,19 +259,17 @@ def getMoviesByActor(catalog,actorname): #Obtiene las peliculas de una productor
         return me.getValue(actor)
     return None
 
-
-
-
-
 def getMoviesByDirector(catalog,DirectorName): #Obtiene las peliculas de una productora
     aDirector = mp.get(catalog["Directors"],DirectorName)
     if aDirector:
         return me.getValue(aDirector)
     return None
 
-
-
-
+def getMoviesByGenre (catalog,genrename):
+    genre = mp.get(catalog["Genres"],genrename)
+    if genre:
+        return me.getValue(genre)
+    return None
 
 def getMoviesByid(catalog,id):
     title=mp.get(catalog['MoviesIds'],id)

@@ -68,10 +68,19 @@ def loadMovies (catalog,file,file2, sep=";"):
                 model.addMovieDirector(catalog,DirectorName,row)
     except:
         print("Hubo un error con la carga del archivo")
+    try:
+        with open(file, encoding='utf-8-sig') as csvfile:
+            spamreader = csv.DictReader(csvfile, dialect=dialect)
+            for row in spamreader: 
+                genres = row["genres"]
+                genres = genres.replace("|"," ")
+                genres = genres.split()
 
+                for i in genres:
+                    model.addMovieGenre(catalog,i,row)
+    except:
+        print("No fue posible cargar los generos")
 
-
-    
 
 
 
@@ -129,13 +138,13 @@ def getMoviesByActor(catalog,actorname):
     info=model.getMoviesByActor(catalog,actorname)
     return info
 
-
-
 def getMoviesByDirector(catalog,DirectorName):
     info=model.getMoviesByDirector(catalog,DirectorName)
     return info
 
-
+def getMoviesByGenre (catalog,genrename):
+    genreinfo = model.getMoviesByGenre(catalog,genrename)
+    return genreinfo
 
 def getMovieByid(catalog,id):
     movie=model.getMoviesByid(catalog,id)
