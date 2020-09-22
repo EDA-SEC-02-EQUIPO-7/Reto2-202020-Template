@@ -48,6 +48,14 @@ def loadMovies (catalog,file,file2, sep=";"):
                 model.addmovie(catalog,row)
                 producername = row["production_companies"]
                 model.addMovieProducer(catalog,producername,row)
+                genres = row["genres"]
+                genres = genres.replace("|"," ")
+                genres = genres.split()
+
+                for i in genres:
+                    model.addMovieGenre(catalog,i,row)
+                EachCountry = row["production_countries"]
+                model.addMovieCountry(catalog,EachCountry,row)
     except:
         print("Hubo un error con la carga del archivo")
     try:
@@ -66,32 +74,10 @@ def loadMovies (catalog,file,file2, sep=";"):
                 model.addMovieActor(catalog,actor5,row)
                 DirectorName = row["director_name"]               
                 model.addMovieDirector(catalog,DirectorName,row)
+                model.addCasting(catalog,row)
     except:
         print("Hubo un error con la carga del archivo")
-    try:
-        with open(file, encoding='utf-8-sig') as csvfile:
-            spamreader = csv.DictReader(csvfile, dialect=dialect)
-            for row in spamreader: 
-                genres = row["genres"]
-                genres = genres.replace("|"," ")
-                genres = genres.split()
-
-                for i in genres:
-                    model.addMovieGenre(catalog,i,row)
-    except:
-        print("No fue posible cargar los generos")
-
-        
-
-    print ("Cargando información de los paises de producción...")
-    try:
-        with open(file, encoding='utf-8-sig') as csvfile:
-            spamreader = csv.DictReader(csvfile, dialect=dialect)
-            for row in spamreader:               
-                EachCountry = row["production_countries"]
-                model.addMovieCountry(catalog,EachCountry,row)
-    except:
-        print("No fue posible cargar la información de los paises de producción")
+    
 
 
 
@@ -164,6 +150,9 @@ def getMoviesByCountry (catalog,CountryName):
 
 def getMovieByid(catalog,id):
     movie=model.getMoviesByid(catalog,id)
+    return movie
+def getMovieByid2(catalog,id):
+    movie=model.getMoviesByid2(catalog,id)
     return movie
 
 

@@ -86,6 +86,10 @@ def newCatalog():
                                    maptype='PROBING',
                                    loadfactor=0.5,
                                    comparefunction=compareMapMoviesIds)
+    catalog['MoviesIds2'] = mp.newMap(500000,
+                                   maptype='PROBING',
+                                   loadfactor=0.5,
+                                   comparefunction=compareMapMoviesIds)
 
     catalog['Producers'] = mp.newMap(500000,
                                    maptype='PROBING',
@@ -138,7 +142,11 @@ def newActor(actorname):
     actor["mayor"]=0
     actor["director"]=""
     return actor
-
+def newGenre(genrename):
+    genre = {'name': None , "movies": None,  "vote_average": 0}
+    genre['name'] = genrename
+    genre['movies'] = lt.newList("ARRAY_LIST",CompareGenresByName)
+    return genre
 
 
 def newDirector (DirectorName):
@@ -165,6 +173,8 @@ def addmovie (catalog,movie):
     lt.addLast(catalog["pelis"],movie)
     mp.put(catalog["MoviesIds"],movie["id"],movie)
     "Funciones Adicionales de agregar"
+def addCasting(catalog,movie):
+    mp.put(catalog['MoviesIds2'],movie["id"],movie)
 
 def addMovieProducer(catalog, producername, movie):
     producers = catalog["Producers"]
@@ -316,7 +326,11 @@ def getMoviesByid(catalog,id):
     if title:
         return me.getValue(title)
     return None
-
+def getMoviesByid2(catalog,id):
+    title=mp.get(catalog['MoviesIds2'],id)
+    if title:
+        return me.getValue(title)
+    return None
 # ==============================
 # Funciones de Comparacion
 # ==============================

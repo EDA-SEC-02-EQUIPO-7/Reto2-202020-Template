@@ -42,8 +42,8 @@ operación seleccionada.
 
 #csvcasting = "Data\AllMoviesCastingRaw.csv"
 #csvdetalles = "Data\AllMoviesDetailsCleaned.csv"
-csvcasting = "Reto2-202020-Template/Data/MoviesCastingRaw-small.csv"
-csvdetalles = "Reto2-202020-Template/Data/SmallMoviesDetailsCleaned.csv"
+csvcasting = "Data\MoviesCastingRaw-small.csv"
+csvdetalles = "Data\SmallMoviesDetailsCleaned.csv"
 #csvcasting = "Reto2-202020-Template/Data/AllMoviesCastingRaw.csv"
 #csvdetalles = "Reto2-202020-Template/Data/AllMoviesDetailsCleaned.csv"
 
@@ -167,7 +167,9 @@ def printMenu():
             while it.hasNext(iterator):
                 element=it.next(iterator)
                 movie=controller.getMovieByid(catalog,element)
-                print("-> "+ movie["original_title"])
+                movie2=controller.getMovieByid2(catalog,element)
+                date=movie["release_date"]
+                print("-> "+ movie["original_title"]+","+ date +","+movie2["director_name"])
 
             # Finland 
 
